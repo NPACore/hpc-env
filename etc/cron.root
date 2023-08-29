@@ -1,0 +1,3 @@
+# Every day at 5AM, run the garbage collector to make sure
+# at least 10 GB are free on /gnu/store.
+0 5 * * 1  /usr/local/bin/guix gc -F10G
