@@ -28,3 +28,13 @@ NFS exports in `/etc/exports`
 
 ## Slurm
 
+
+## Meta/Colophon
+### version control
+fossil b/c this is a cathedral not a bazaar. And fossil will track symlinks as file.
+Mirroed on https://github.com/NPACore/hpc-env.git
+[via](https://fossil-scm.org/home/doc/trunk/www/mirrortogithub.md):
+
+```
+fossil git export ~/src/.gitmirror/hpc-env --autopush git@github.com:NPACore/hpc-env.git
+```
