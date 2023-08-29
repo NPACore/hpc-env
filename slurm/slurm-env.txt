@@ -1,0 +1,79 @@
+Tue Aug 29 08:54:17 EDT 2023
+node06
+---------------------------- /cm/local/modulefiles -----------------------------
+cluster-tools/9.0  dot              lua/5.3.5    null      shared               
+cmd                freeipmi/1.6.4   luajit       openldap  slurm/slurm/19.05.5  
+cmjob              gcc/9.2.0        module-git   python3   
+cuda-dcgm/1.7.1.1  ipmitool/1.8.18  module-info  python37  
+
+---------------------------- /cm/shared/modulefiles ----------------------------
+afni/21.3.06                     hdf5/1.10.1                   ucx/1.6.1  
+blacs/openmpi/gcc/64/1.1patch03  hdf5_18/1.8.21                
+blas/gcc/64/3.8.0                hwloc/1.11.11                 
+bonnie++/1.98                    intel-tbb-oss/ia32/2020.1     
+cm-pmix3/3.1.4                   intel-tbb-oss/intel64/2020.1  
+cuda10.1/blas/10.1.243           iozone/3_487                  
+cuda10.1/fft/10.1.243            lapack/gcc/64/3.8.0           
+cuda10.1/nsight/10.1.243         mpich/ge/gcc/64/3.3.2         
+cuda10.1/profiler/10.1.243       mvapich2/gcc/64/2.3.2         
+cuda10.1/toolkit/10.1.243        netcdf/gcc/64/gcc/64/4.7.3    
+default-environment              netperf/2.7.0                 
+fftw3/openmpi/gcc/64/3.3.8       openblas/dynamic/(default)    
+gdb/8.3.1                        openblas/dynamic/0.2.20       
+globalarrays/openmpi/gcc/64/5.7  openmpi/gcc/64/1.10.7         
+proc on /proc type proc (rw,nosuid,relatime)
+sysfs on /sys type sysfs (rw,relatime)
+devtmpfs on /dev type devtmpfs (rw,relatime,size=132035620k,nr_inodes=33008905,mode=755)
+tmpfs on /run type tmpfs (rw,relatime)
+/dev/sda1 on / type xfs (rw,noatime,nodiratime,attr2,inode64,noquota)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw)
+devpts on /dev/pts type devpts (rw,relatime,gid=5,mode=620,ptmxmode=000)
+tmpfs on /sys/fs/cgroup type tmpfs (ro,nosuid,nodev,noexec,mode=755)
+cgroup on /sys/fs/cgroup/systemd type cgroup (rw,nosuid,nodev,noexec,relatime,xattr,release_agent=/usr/lib/systemd/systemd-cgroups-agent,name=systemd)
+pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
+bpf on /sys/fs/bpf type bpf (rw,nosuid,nodev,noexec,relatime,mode=700)
+cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,nosuid,nodev,noexec,relatime,hugetlb)
+cgroup on /sys/fs/cgroup/blkio,cpuacct,memory,freezer type cgroup (rw,nosuid,nodev,noexec,relatime,cpuacct,blkio,memory,freezer)
+cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,cpuset)
+cgroup on /sys/fs/cgroup/net_prio type cgroup (rw,nosuid,nodev,noexec,relatime,net_prio)
+cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,perf_event)
+cgroup on /sys/fs/cgroup/devices type cgroup (rw,nosuid,nodev,noexec,relatime,devices)
+cgroup on /sys/fs/cgroup/pids type cgroup (rw,nosuid,nodev,noexec,relatime,pids)
+cgroup on /sys/fs/cgroup/rdma type cgroup (rw,nosuid,nodev,noexec,relatime,rdma)
+cgroup on /sys/fs/cgroup/cpu type cgroup (rw,nosuid,nodev,noexec,relatime,cpu)
+cgroup on /sys/fs/cgroup/net_cls type cgroup (rw,nosuid,nodev,noexec,relatime,net_cls)
+systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=35,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=24289)
+mqueue on /dev/mqueue type mqueue (rw,relatime)
+configfs on /sys/kernel/config type configfs (rw,relatime)
+debugfs on /sys/kernel/debug type debugfs (rw,relatime)
+fusectl on /sys/fs/fuse/connections type fusectl (rw,relatime)
+hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime,pagesize=2M)
+binfmt_misc on /proc/sys/fs/binfmt_misc type binfmt_misc (rw,relatime)
+/dev/sda2 on /var type xfs (rw,noatime,nodiratime,attr2,inode64,noquota)
+/dev/sda6 on /local type xfs (rw,noatime,nodiratime,attr2,inode64,noquota)
+/dev/sda3 on /tmp type xfs (rw,nosuid,nodev,noatime,nodiratime,attr2,inode64,noquota)
+sunrpc on /var/lib/nfs/rpc_pipefs type rpc_pipefs (rw,relatime)
+master:/cm/shared on /cm/shared type nfs (rw,relatime,vers=3,rsize=32768,wsize=32768,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.141.255.253,mountvers=3,mountport=4002,mountproto=udp,local_lock=none,addr=10.141.255.253)
+master:/home on /home type nfs (rw,relatime,vers=3,rsize=32768,wsize=32768,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.141.255.253,mountvers=3,mountport=4002,mountproto=udp,local_lock=none,addr=10.141.255.253)
+10.141.0.8:/dataraid2/users/HCP on /disk/HCP type nfs (rw,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.141.0.8,mountvers=3,mountport=55324,mountproto=udp,local_lock=none,addr=10.141.0.8)
+10.48.88.202:/disk/mace2 on /disk/mace2 type nfs (rw,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.48.88.202,mountvers=3,mountport=57526,mountproto=udp,local_lock=none,addr=10.48.88.202)
+10.48.86.212:/sulcusdata1/XnatDB on /disk/sulcus1 type nfs (rw,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.48.86.212,mountvers=3,mountport=20048,mountproto=udp,local_lock=none,addr=10.48.86.212)
+10.48.86.218:/aionraid on /aionraid type nfs (rw,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.48.86.218,mountvers=3,mountport=20048,mountproto=udp,local_lock=none,addr=10.48.86.218)
+10.48.86.218:/mrraid/archive/scan_data_archive on /disk/scan_data_archive type nfs (rw,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.48.86.218,mountvers=3,mountport=20048,mountproto=udp,local_lock=none,addr=10.48.86.218)
+10.141.0.8:/dataraid1/nas/home/MRSI on /home/MRSI type nfs (rw,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.141.0.8,mountvers=3,mountport=55324,mountproto=udp,local_lock=none,addr=10.141.0.8)
+10.141.0.8:/dataraid1/nas/home/pkg on /home/pkg type nfs (rw,relatime,vers=3,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.141.0.8,mountvers=3,mountport=55324,mountproto=udp,local_lock=none,addr=10.141.0.8)
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: enp6s0f0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 00:25:90:7b:e6:7c brd ff:ff:ff:ff:ff:ff
+    inet 10.141.0.6/16 brd 10.141.255.255 scope global enp6s0f0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::225:90ff:fe7b:e67c/64 scope link 
+       valid_lft forever preferred_lft forever
+3: enp6s0f1: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether 00:25:90:7b:e6:7d brd ff:ff:ff:ff:ff:ff
