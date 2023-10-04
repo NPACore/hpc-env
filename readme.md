@@ -1,4 +1,10 @@
 # HPC Environment for cerebro2
+This repo is on `/raidzeus/src/hpc-env` and in github (private) https://github.com/npacore/hpc-env
+
+  * `docs/` documents modifications to the environment
+  * `modules/` stores "environment module" modules (see below)
+  * `etc/` tracks head node (cerebro2) settings, despite these being mostly managed by `Bright Cluster Manager`.
+
 ## Modules
 ["environment module"](https://modules.readthedocs.io/en/latest/) not not [lmod](https://lmod.readthedocs.io/en/latest/)
 
@@ -21,22 +27,8 @@
 
 ## Mounts
 
-NFS exports in `/etc/exports`
+NFS exports for guix and zeus in `/etc/exports`. Managed by bright view. see [`nfs_mounts.md`][docs/nfs_mounts.md)
 
- * guix
- * Zeus
 
 ## Slurm
 see `slurm/slurm-env.txt` (and `Makefile`)
-
-## Meta/Colophon
-### Version Control
-`fossil` b/c this is a cathedral not a bazaar. And fossil will track symlinks as file.
-Mirrored on https://github.com/NPACore/hpc-env.git
-[via](https://fossil-scm.org/home/doc/trunk/www/mirrortogithub.md):
-
-```
-fossil git export ~/src/.gitmirror/hpc-env --autopush git@github.com:NPACore/hpc-env.git
-# subsequent exports: fossil git export
-```
-
