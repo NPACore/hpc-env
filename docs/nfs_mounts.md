@@ -1,9 +1,14 @@
 # NFS Mounts
 [2023-10-04] Want both head and nodes to know about `zeus:/raidzeus/` and, separetly, head to serve guix and assocated mounts (`/var/guix`, `/gnu/store`, `/var/log/guix`).
+Modified `FSParts` and `FSMounts` using BrightView web interface (over socks proxy). Modified (but w/o `--perminate`) zeus' firewall ruiles using `firewall-cmd`. 
 
 ## BrightView
   * exports for nfs on head (guix) in ["FSParts"](https://10.48.88.160:8081/bright-view/#/j1/FSParts/default)
   * nfs mounts in ["Catagory>default>FSMounts"](https://10.48.88.160:8081/bright-view/#/j1/categories/default/j2/categories/12884901889/settings/j3/fSMounts/default)
+
+![FSexports](bright_FSexports_guix.png)
+
+![FSMounts](bright_FSMounts_guix_zeusraid.png)
 
 ### Issues
 Guix mounts need to be in the same group as the nodes (`internalnet`). When the mount's "network" was set to `globalnet`, nodes could not see/mount.
@@ -27,6 +32,16 @@ cmsh
 
 ## Guix
 https://guix.gnu.org/cookbook/en/html_node/Setting-Up-a-Head-Node.html
+
+head exports (`cerebro2`)
+```
+/gnu/store    *(ro)
+/var/guix     *(rw, async)
+/var/log/guix *(ro)
+```
+
+nodes mount using `$localnfsserver:/path`. `/gnu/store` needs explicit `exec` in options. All exports need to be on `internalnet` to be mounted on nodes.
+
 
 
 ## Zeus
