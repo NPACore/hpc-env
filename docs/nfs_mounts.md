@@ -11,7 +11,8 @@ Modified `FSParts` and `FSMounts` using BrightView web interface (over socks pro
 ![FSMounts](bright_FSMounts_guix_zeusraid.png)
 
 ### Issues
-Guix mounts need to be in the same group as the nodes (`internalnet`). When the mount's "network" was set to `globalnet`, nodes could not see/mount.
+ * Guix mounts need to be in the same group as the nodes (`internalnet`). When the mount's "network" was set to `globalnet`, nodes could not see/mount.
+ * `foranw` was not synced between zeus and cerebro. easy group fix: `modgroup -g 1004 foranw` but cannot `moduser -u 1004 foranw` while still connected. in root shell: 1. edit `/etc/passwd` and 2. `find /home/foranw/ /raidzeus/ -user 1002 -exec chown foranw {} \+`
 
 ### remote access
 Remote access through a web browser without needing to X11Forward is a SOCKS Proxy away:
