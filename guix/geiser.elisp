@@ -1,0 +1,3 @@
+(use-package geiser-guile :ensure t
+  :config
+  (setq geiser-guile-binary "guix-repl"))
