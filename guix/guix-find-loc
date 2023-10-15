@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+[ $# -ne 1 ] && echo "usage: $0 library.so | package-name" && exit 1
+if [[ "$*" =~ .so$ ]]; then
+  find /gnu/store/ -iname "$1"
+else
+  guix package -s "$@" | recsel -R name,location -C
+fi
