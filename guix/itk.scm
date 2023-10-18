@@ -45,6 +45,29 @@
         (base32 "0g1idakq8h3nm8904jg9v8hmi07jw1acdjw3hyga6h0w9vvslmll")))
      )))
 
+(define itk-gli
+  (origin
+    (method git-fetch)
+    (uri (git-reference
+          (url "https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator")
+          ;5.4.rc02  (commit (string-append "v" version)) "04rq674mzav8daadqzk2ir3qi4l91h4k617hs7gqn41yszj5c93w"
+          (commit "35212939091e9a449e78cf4b811f8081e2d3f104")
+          (recursive? #t)))
+    (file-name "ITKGenericLabelInterpolator")
+    (sha256
+     (base32 "0bz8rxlvkmm9l7d9riqbyfnygss5i7aidw21ffk29zbjc3w9qi4y"))))
+
+(define itk-adaptivedenoise
+  (origin
+    (method git-fetch)
+    (uri (git-reference
+          (url "https://github.com/ntustison/ITKAdaptiveDenoising")
+          (commit "24825c8d246e941334f47968553f0ae388851f0c")
+          (recursive? #t)))
+    (file-name "ITKAdaptiveDenoising")
+    (sha256
+     (base32 "0spcyn52z1i716qfs8rjk7p3g6p2jgns82nsgyhl6wzsmp6mpqkm"))))
+
 (define-public insight-toolkit
   (package
     (name "insight-toolkit")
@@ -92,12 +115,14 @@
                               (("-mtune=native")
                                ""))))
 
-                        ; ModuleExternal needed by itk-gli but not copied in
-                        ; NB. hard coced ITK-5.4
-                        (add-after 'install 'copy-cmake
-                          (lambda* (#:key outputs #:allow-other-keys)
-                            (install-file "CMake/ITKModuleExternal.cmake" (string-append (assoc-ref outputs "out") "/lib/cmake/ITK-5.4/"))
-                                          )))))
+                        ; source/CMake/ITKModuleRemote.cmake: itk_fetch_module
+                        ; Modules/Remote/GenericLabelInterpolator.remote.cmake
+                        ; "${ITK_SOURCE_DIR}/Modules/Remote/${_name}"
+                        (add-after 'unpack 'get-other-module
+                          (lambda*  (#:key inputs #:allow-other-keys)
+                            (copy-recursively (assoc-ref inputs "itk-gli")  "Modules/Remote/GenericLabelInterpolator")
+                            (copy-recursively (assoc-ref inputs "itk-adaptivedenoise")  "Modules/Remote/AdaptiveDenoising")))))
+     )
     (inputs
      (list eigen
            expat
@@ -114,7 +139,12 @@
            vxl-1
            zlib))
     (native-inputs
-     (list git kwstyle googletest pkg-config))
+     `(("git" ,git)
+       ("kwstyle" ,kwstyle)
+       ("googletest" ,googletest)
+       ("itk-gli" ,itk-gli)
+       ("itk-adaptivedenoise" ,itk-adaptivedenoise)
+))
 
     ;; The 'CMake/ITKSetStandardCompilerFlags.cmake' file normally sets
     ;; '-mtune=native -march=corei7', suggesting there's something to be
@@ -135,36 +165,3 @@ combine the information contained in both.")
 ))
 
 insight-toolkit
-
-(define-public itk-gli
-  (package
-    (name "itk-gli")
-    (version "5.4")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator")
-             ;5.4.rc02  (commit (string-append "v" version)) "04rq674mzav8daadqzk2ir3qi4l91h4k617hs7gqn41yszj5c93w"
-             (commit "35212939091e9a449e78cf4b811f8081e2d3f104")
-             (recursive? #t)))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "0bz8rxlvkmm9l7d9riqbyfnygss5i7aidw21ffk29zbjc3w9qi4y"))))
-    (build-system cmake-build-system)
-    (inputs
-     (list eigen
-           fftw
-           fftwf
-           hdf5
-           perl
-           python
-           zlib))
-    (native-inputs (list insight-toolkit googletest pkg-config))
-    (properties '((tunable? . #t)))
-    (home-page "https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator")
-    (synopsis "Insight Toolkit (ITK) generic interpolator module")
-    (description "A module for the Insight Toolkit (ITK) that provides a generic interpolator for label images to interpolate each label with an ordinary image interpolator, and return the label with the highest value.")
-    (license license:asl2.0)
-))
-itk-gli
