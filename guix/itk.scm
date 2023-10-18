@@ -67,7 +67,7 @@
                                  "-DITK_USE_SYSTEM_LIBRARIES=ON"
                                  "-DITK_USE_SYSTEM_GOOGLETEST=ON"
                                  "-DITK_BUILD_SHARED=ON"
-                                 ;; KWStylej
+                                 ;; KWStyle and ITK (insight-toolbox) need to be built elsewhere
                                  "-DITK_FORBID_DOWNLOADS=ON"
                                  "-DBUILD_TESTING=OFF"
                                  ;; This prevents "GTest::GTest" from being added to the ITK_LIBRARIES
@@ -90,7 +90,14 @@
                           (lambda _
                             (substitute* "CMake/ITKSetStandardCompilerFlags.cmake"
                               (("-mtune=native")
-                               "")))))))
+                               ""))))
+
+                        ; ModuleExternal needed by itk-gli but not copied in
+                        ; NB. hard coced ITK-5.4
+                        (add-after 'install 'copy-cmake
+                          (lambda* (#:key outputs #:allow-other-keys)
+                            (install-file "CMake/ITKModuleExternal.cmake" (string-append (assoc-ref outputs "out") "/lib/cmake/ITK-5.4/"))
+                                          )))))
     (inputs
      (list eigen
            expat
@@ -128,3 +135,36 @@ combine the information contained in both.")
 ))
 
 insight-toolkit
+
+(define-public itk-gli
+  (package
+    (name "itk-gli")
+    (version "5.4")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator")
+             ;5.4.rc02  (commit (string-append "v" version)) "04rq674mzav8daadqzk2ir3qi4l91h4k617hs7gqn41yszj5c93w"
+             (commit "35212939091e9a449e78cf4b811f8081e2d3f104")
+             (recursive? #t)))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "0bz8rxlvkmm9l7d9riqbyfnygss5i7aidw21ffk29zbjc3w9qi4y"))))
+    (build-system cmake-build-system)
+    (inputs
+     (list eigen
+           fftw
+           fftwf
+           hdf5
+           perl
+           python
+           zlib))
+    (native-inputs (list insight-toolkit googletest pkg-config))
+    (properties '((tunable? . #t)))
+    (home-page "https://github.com/InsightSoftwareConsortium/ITKGenericLabelInterpolator")
+    (synopsis "Insight Toolkit (ITK) generic interpolator module")
+    (description "A module for the Insight Toolkit (ITK) that provides a generic interpolator for label images to interpolate each label with an ordinary image interpolator, and return the label with the highest value.")
+    (license license:asl2.0)
+))
+itk-gli

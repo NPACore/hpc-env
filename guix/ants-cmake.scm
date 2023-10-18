@@ -23,7 +23,7 @@
   #:use-module (gnu packages image-processing)
 )
 
-(include "itk.scm")
+(include "itk.scm") ; insight-toolkit
 
 (define-public ants
    (package
@@ -40,7 +40,7 @@
        (sha256
         (base32 "0i67j4alsrrs1xi61sr7zwnhyr6z5v53g6fbmasw113br9r9na5d")))
     )
-    (native-inputs (list perl git hdf5 insight-toolkit googletest pkg-config cmake))
+    (native-inputs (list perl git hdf5 insight-toolkit itk-gli googletest pkg-config cmake))
     (inputs (list perl)) ;R
     (build-system cmake-build-system)
     ; find_package(GTest REQUIRED)
