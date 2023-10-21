@@ -68,6 +68,10 @@
     (sha256
      (base32 "0spcyn52z1i716qfs8rjk7p3g6p2jgns82nsgyhl6wzsmp6mpqkm"))))
 
+; break out dependenciy into string . package
+; (@d libjpeg-turbo) => ("libjpeg-turbo" libjpeg-trubo)
+;; (define-syntax @d (syntax-rules () ((- sym) (list (symbol->string (quote sym)) sym))))
+
 (define-public insight-toolkit
   (package
     (name "insight-toolkit")
@@ -139,7 +143,12 @@
            vxl-1
            zlib))
     (native-inputs
-     `(("git" ,git)
+     `(("libjpeg-turbo" ,libjpeg-turbo)
+       ("libtiff" ,libtiff)
+       ("mesa-opencl" ,mesa-opencl)
+       ("zlib" ,zlib)
+       ("vxl-1" ,vxl-1)
+       ("git" ,git)
        ("kwstyle" ,kwstyle)
        ("googletest" ,googletest)
        ("itk-gli" ,itk-gli)

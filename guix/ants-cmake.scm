@@ -14,7 +14,7 @@
   #:use-module (gnu packages certs) ;nss-certs
   #:use-module (gnu packages maths) ; hdf5 (itk)
   #:use-module (gnu packages algebra) ; fftwf (itk)
-  #:use-module (gnu packages image) ; libpng (itk)
+  #:use-module (gnu packages image) ; libpng libjepeg-turbo (itk)
   #:use-module (gnu packages gl) ; mesa-opencl (itk)
   #:use-module (gnu packages xml) ; expat (itk)
   #:use-module (gnu packages python) ; (itk)
@@ -40,8 +40,8 @@
        (sha256
         (base32 "0i67j4alsrrs1xi61sr7zwnhyr6z5v53g6fbmasw113br9r9na5d")))
     )
-    (native-inputs (list perl git hdf5 insight-toolkit itk-gli googletest pkg-config cmake))
-    (inputs (list perl)) ;R
+    (native-inputs (list perl git hdf5 expat libpng libjpeg-turbo libtiff mesa-opencl insight-toolkit itk-gli googletest pkg-config cmake))
+    (inputs (list perl insight-toolkit)) ;R
     (build-system cmake-build-system)
     ; find_package(GTest REQUIRED)
     (arguments
