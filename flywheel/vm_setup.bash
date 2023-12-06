@@ -66,3 +66,11 @@ virsh net-update default add ip-dhcp-host \
 
 
 sudo systemctl disable --now docker k3s
+
+# start on boot and start right now
+virsh autostart fw-core
+virsh start fw-core
+
+virsh -c qemu:///session dumpxml fw-core > fw-core.xml
+virsh -c qemu:///session undefine fw-core
+sudo virsh -c qemu:///system define fw-core.xml
