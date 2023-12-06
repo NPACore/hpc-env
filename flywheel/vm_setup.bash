@@ -74,3 +74,60 @@ virsh start fw-core
 virsh -c qemu:///session dumpxml fw-core > fw-core.xml
 virsh -c qemu:///session undefine fw-core
 sudo virsh -c qemu:///system define fw-core.xml
+
+
+# clone and modify to create connect, utility, and analysis
+virt-clone \
+   --original fw-core \
+   --name fw-connect \
+   --file /raidzeus/vm/fw-connect.img
+virsh setmaxmem fw-connect $((16*1024*1024)) --config
+virsh setmem    fw-connect $((16*1024*1024)) --config
+virsh setvcpus  fw-connect 4 --config --maximum
+virsh setvcpus  fw-connect 4 --config
+mac=$(virsh dumpxml fw-connect|grep -Po "(?<=mac\ address=')[0-9a-f:]+" ) # 52:54:00:f6:9f:b7
+virsh net-update default add ip-dhcp-host \
+          "<host mac='$mac' \
+           name='fw-connect' ip='192.168.122.3' />" \
+           --live --config
+virsh start fw-connect
+echo 'fw-connect'| ssh fw@192.168.122.3 sudo tee /etc/hostname
+
+
+
+virt-clone \
+   --original fw-connect \
+   --name fw-util \
+   --file /raidzeus/vm/fw-util.img
+virsh setmaxmem fw-util $((4*1024*1024)) --config
+virsh setmem    fw-util $((4*1024*1024)) --config
+virsh setvcpus  fw-util 2 --config --maximum
+virsh setvcpus  fw-util 2 --config
+sudo qemu-img resize /raidzeus/vm/fw-util.img 100G
+mac=$(virsh dumpxml fw-util|grep -Po "(?<=mac\ address=')[0-9a-f:]+" )
+virsh net-update default add ip-dhcp-host \
+          "<host mac='$mac' \
+           name='fw-util' ip='192.168.122.4' />" \
+           --live --config
+virsh start fw-util
+echo 'fw-util'| ssh fw@192.168.122.4 sudo tee /etc/hostname
+
+virt-clone \
+   --original fw-connect \
+   --name fw-analysis \
+   --file /raidzeus/vm/fw-analysis.img
+virsh setmaxmem fw-analysis $((8*1024*1024)) --config
+virsh setmem    fw-analysis $((8*1024*1024)) --config
+virsh setvcpus  fw-analysis 8 --config --maximum
+virsh setvcpus  fw-analysis 8 --config
+sudo qemu-img resize /raidzeus/vm/fw-analysis.img 200G
+mac=$(virsh dumpxml fw-analysis | grep -Po "(?<=mac\ address=')[0-9a-f:]+" )
+virsh net-update default add ip-dhcp-host \
+          "<host mac='$mac' \
+           name='fw-analysis' ip='192.168.122.5' />" \
+           --live --config
+virsh start fw-analysis
+echo 'fw-analysis'| ssh fw@192.168.122.5 sudo tee /etc/hostname
+
+
+ssh fw@192.168.122.2 'sudo growpart /dev/vda 2; sudo resize2fs /dev/vda2'

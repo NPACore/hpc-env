@@ -1,0 +1,18 @@
+<network>
+  <name>routed</name>
+  <bridge name="virbr1" />
+  <forward mode="route"/>
+  <ip address="10.48.86.33" netmask="10.48.86.248">
+    <dhcp>
+      <!--<range start="10.48.86.34" end="10.48.86.248"/>-->
+    </dhcp>
+  </ip>
+  <ip family="ipv6" address="2001:db8:aa::1" prefix="64"/>
+</network>
+<!--
+https://jamielinux.com/docs/libvirt-networking-handbook/routed-network.html
+
+virsh net-define route-network.xml
+virsh net-autostart routed
+virsh net-start routed
+-->
