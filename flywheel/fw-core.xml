@@ -1,4 +1,4 @@
-<domain type='kvm' id='15'>
+<domain type='kvm' id='3'>
   <name>fw-core</name>
   <uuid>3c4e9d57-37ee-4086-9394-35dab37d8fe8</uuid>
   <memory unit='KiB'>52428800</memory>
@@ -81,20 +81,20 @@
     <interface type='network'>
       <mac address='52:54:00:6d:e4:ae'/>
       <source network='default' bridge='virbr0'/>
-      <target dev='vnet0'/>
+      <target dev='vnet2'/>
       <model type='virtio'/>
       <alias name='net0'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
     </interface>
     <serial type='pty'>
-      <source path='/dev/pts/1'/>
+      <source path='/dev/pts/4'/>
       <target type='isa-serial' port='0'>
         <model name='isa-serial'/>
       </target>
       <alias name='serial0'/>
     </serial>
-    <console type='pty' tty='/dev/pts/1'>
-      <source path='/dev/pts/1'/>
+    <console type='pty' tty='/dev/pts/4'>
+      <source path='/dev/pts/4'/>
       <target type='serial' port='0'/>
       <alias name='serial0'/>
     </console>
@@ -108,7 +108,7 @@
     <input type='keyboard' bus='ps2'>
       <alias name='input2'/>
     </input>
-    <graphics type='vnc' port='5900' autoport='yes' listen='127.0.0.1'>
+    <graphics type='vnc' port='5902' autoport='yes' listen='127.0.0.1'>
       <listen type='address' address='127.0.0.1'/>
     </graphics>
     <video>

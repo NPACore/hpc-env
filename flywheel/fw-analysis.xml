@@ -1,4 +1,4 @@
-<domain type='kvm' id='14'>
+<domain type='kvm' id='4'>
   <name>fw-analysis</name>
   <uuid>055890a3-9639-4ac9-9bfb-38655947b9ba</uuid>
   <memory unit='KiB'>8388608</memory>
