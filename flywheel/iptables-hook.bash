@@ -11,6 +11,7 @@
 # host: curl localhost:80000
 
 # 20231205WF - init. if->case. create ip:port/hostport scheme
+LOG=/var/log/vm_qemu_iptables.log
 
 update_forwarding(){
  local delete_or_insert guest_ip guest_port host_port
@@ -36,23 +37,24 @@ action="$1"; shift
 GUEST_PORT=()
 INSERT_DELETE=()
 
+
 case "$vmname" in
  fw-core) GUEST_PORT=("192.168.122.2:80/80" "192.168.122.2:8000/8000");;
  # testing, DIY ip:port/hostport
  [0-9.]*:[0-9]*/[0-9]*) GUEST_PORT=("$vmname");;
- *) echo "unknown VM name '$vmname' (cannot '$action')"; exit ;;
+ *) echo "unknown VM name '$vmname' (cannot '$action')" |tee $LOG; exit ;;
 esac
 
 case "$action" in
    stopped)   INSERT_DELETE=("-D") ;;
    start)     INSERT_DELETE=("-I");;
    reconnect) INSERT_DELETE=("-D" "-I");;
-   *) echo "unknown action '$action' (for '$vmname')"; exit;;
+   *) echo "unknown action '$action' (for '$vmname')" |tee $LOG; exit;;
 esac
 
 for ip_ports_str in "${GUEST_PORT[@]}"; do
   for i_d in "${INSERT_DELETE[@]}"; do
-    update_forwarding $i_d $ip_ports_str  |& tee -a /var/log/vm_qemu_iptables.log
-    echo "$(date +%FT%H:%M) $i_d $ip_ports_str" >> /var/log/vm_qemu_iptables.log
+    update_forwarding $i_d $ip_ports_str  |& tee -a $LOG
+    echo "$(date +%FT%H:%M) $i_d $ip_ports_str" >> $LOG
   done
 done
