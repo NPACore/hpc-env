@@ -5,6 +5,8 @@ default-network.xml: .ALWAYS
 %.xml: .ALWAYS
 	virsh dumpxml $(subst .xml,,$@) > $@
 
+iptables.txt:
+	sudo iptables-save > $@
 
 /etc/libvirt/hooks/qemu: iptables-hook.bash 
 	sudo cp $< $@
