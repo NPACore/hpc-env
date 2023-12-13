@@ -23,7 +23,7 @@ update_forwarding(){
  guest_port="${BASH_REMATCH[2]}" 
  host_port="${BASH_REMATCH[3]}"
 
- /sbin/iptables $delete_or_insert FORWARD -o virbr0 -p tcp -d $guest_ip --dport $guest_port -j ACCEPT
+ /sbin/iptables  $delete_or_insert FORWARD -o virbr0 -p tcp -d $guest_ip --dport $guest_port -j ACCEPT
  /sbin/iptables -t nat $delete_or_insert PREROUTING -p tcp --dport $host_port -j DNAT --to $guest_ip:$guest_port
 }
 
@@ -39,17 +39,24 @@ INSERT_DELETE=()
 
 
 case "$vmname" in
- fw-core) GUEST_PORT=("192.168.122.2:80/80" "192.168.122.2:8000/8000");;
+ fw-core) GUEST_PORT=(
+	 "192.168.122.2:80/80"
+	 "192.168.122.2:443/443"
+	 "192.168.122.2:8000/8000");;
+
  # testing, DIY ip:port/hostport
  [0-9.]*:[0-9]*/[0-9]*) GUEST_PORT=("$vmname");;
- *) echo "unknown VM name '$vmname' (cannot '$action')" |tee $LOG; exit ;;
+ *) echo "Unknown VM name '$vmname', cannot apply action '$action'. "\
+         'See `virsh list --all` for vm-names. Or use "ip:gport/hport"' |tee $LOG; exit ;;
 esac
 
 case "$action" in
    stopped)   INSERT_DELETE=("-D") ;;
    start)     INSERT_DELETE=("-I");;
    reconnect) INSERT_DELETE=("-D" "-I");;
-   *) echo "unknown action '$action' (for '$vmname')" |tee $LOG; exit;;
+   *) echo "Unknown action '$action' for '$vmname'. "\
+	   "Action must be 'start', 'stopped' or 'reconnect'" |
+   tee $LOG; exit;;
 esac
 
 for ip_ports_str in "${GUEST_PORT[@]}"; do
