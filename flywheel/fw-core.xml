@@ -1,9 +1,9 @@
-<domain type='kvm' id='3'>
+<domain type='kvm' id='6'>
   <name>fw-core</name>
   <uuid>3c4e9d57-37ee-4086-9394-35dab37d8fe8</uuid>
   <memory unit='KiB'>52428800</memory>
   <currentMemory unit='KiB'>52428800</currentMemory>
-  <vcpu placement='static'>1</vcpu>
+  <vcpu placement='static'>12</vcpu>
   <resource>
     <partition>/machine</partition>
   </resource>
