@@ -1,9 +1,9 @@
-<domain type='kvm' id='2'>
+<domain type='kvm' id='5'>
   <name>fw-connect</name>
   <uuid>52c0e170-9528-4698-8b08-aad3d3bb702c</uuid>
-  <memory unit='KiB'>16777216</memory>
-  <currentMemory unit='KiB'>16777216</currentMemory>
-  <vcpu placement='static'>4</vcpu>
+  <memory unit='KiB'>33554432</memory>
+  <currentMemory unit='KiB'>33554432</currentMemory>
+  <vcpu placement='static'>8</vcpu>
   <resource>
     <partition>/machine</partition>
   </resource>
