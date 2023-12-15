@@ -32,6 +32,9 @@ if ! [[ $HOST_IP =~ ^[0-9.]+$ ]]; then
   exit 1
 fi
 
+# also add VM host ip destition so forwading applies within the VM network too
+HOST_IP=("$HOST_IP") # "192.168.122.1")
+
 update_forwarding(){
  local del_or_ins guest_ip guest_port host_port
  del_or_ins="${1:?iptables -D/-I delete or insert}"; shift # -D or -I
@@ -45,10 +48,12 @@ update_forwarding(){
  local host_ip=$guest_ip
  local guest_nic=virbr0
 
- set -x 2>/dev/null
- /sbin/iptables        $del_or_ins FORWARD -o virbr0 -p tcp -d $guest_ip --dport $guest_port -j ACCEPT
- /sbin/iptables -t nat $del_or_ins PREROUTING        -p tcp -d $HOST_IP  --dport $host_port  -j DNAT --to $guest_ip:$guest_port
- set +x 2>/dev/null
+ for host_ip in "${HOST_IP[@]}"; do
+   set -x
+   /sbin/iptables        $del_or_ins FORWARD -o virbr0 -p tcp -d $guest_ip --dport $guest_port -j ACCEPT
+   /sbin/iptables -t nat $del_or_ins PREROUTING        -p tcp -d $host_ip  --dport $host_port  -j DNAT --to $guest_ip:$guest_port
+   { set +x; } 2>&-
+ done
 
 }
 
