@@ -7,6 +7,8 @@ ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:bootps
 
 Chain FORWARD (policy ACCEPT)
 target     prot opt source               destination         
+ACCEPT     tcp  --  anywhere             fw-core              tcp dpt:https
+ACCEPT     tcp  --  anywhere             fw-core              tcp dpt:http
 ACCEPT     all  --  anywhere             192.168.122.0/24     ctstate RELATED,ESTABLISHED
 ACCEPT     all  --  192.168.122.0/24     anywhere            
 ACCEPT     all  --  anywhere             anywhere            

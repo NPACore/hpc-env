@@ -27,6 +27,8 @@ requires `apt install nfs-common` on VMs.
   * `iptables-hook.bash` is intended to by copied to `/etc/libvirt/hooks/qemu` but might [have an error](https://serverfault.com/questions/989967/cant-port-forward-with-iptables-kvm-nat)
   * `iptables.txt` (see `Makefile`) has current firewall settings
   * panic ran `systemctl stop firewalld` (20231212). not sure what willhappen when brought back up. see `firewall-cmd` in `vm_setup.bash`
+  * `-d $HOST_IP` is missing in libvirt PREROUTING `iptables` networking example?
+
 
 ## Trouble shooting
 
