@@ -24,9 +24,16 @@ requires `apt install nfs-common` on VMs.
 
 ## NAT port forwarding
 
+As of 2023-12-14, remote connections to `Zeus` (VM host, `fw.mrrc.upmc.edu`) on port `80` or `443` are forwarded to `fw-core` (`192.168.122.2`, see `default-network.xml`).
+
+From zeus itself, fw.mrrc.upmc.edu resolves to localhost and will not find a running httpd. Instead, use `192.168.122.2`/`fw-core` to find http/s servers.
+Similarly, from fw-core fw.mrrc.upmc.edu:80 points to zeus (no iptables virtbr0 80+443 rules). Current kludge: `fw-core:/etc/hosts` has fw.mrrc.upmc.edu point to localhost.
+
+### Notes
+
   * `iptables-hook.bash` is intended to by copied to `/etc/libvirt/hooks/qemu` but might [have an error](https://serverfault.com/questions/989967/cant-port-forward-with-iptables-kvm-nat)
   * `iptables.txt` (see `Makefile`) has current firewall settings
-  * panic ran `systemctl stop firewalld` (20231212). not sure what willhappen when brought back up. see `firewall-cmd` in `vm_setup.bash`
+  * panic ran `systemctl stop firewalld` (20231212). not sure what will happen when brought back up. see `firewall-cmd` in `vm_setup.bash`
   * `-d $HOST_IP` is missing in libvirt PREROUTING `iptables` networking example?
 
 
