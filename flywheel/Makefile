@@ -12,3 +12,5 @@ iptables.txt:
 
 /etc/libvirt/hooks/qemu: iptables-hook.bash 
 	sudo cp $< $@
+fstab: /etc/fstab
+	cp $< $@

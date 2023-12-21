@@ -1,4 +1,4 @@
-<domain type='kvm' id='1'>
+<domain type='kvm' id='7'>
   <name>fw-util</name>
   <uuid>12064bab-2bf9-436c-b9d0-95d1571b8177</uuid>
   <memory unit='KiB'>4194304</memory>
@@ -39,7 +39,7 @@
     <emulator>/usr/libexec/qemu-kvm</emulator>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
-      <source file='/raidzeus/vm/fw-util.img'/>
+      <source file='/nvme-vm/fw/fw-util.img'/>
       <backingStore/>
       <target dev='vda' bus='virtio'/>
       <alias name='virtio-disk0'/>
@@ -81,20 +81,20 @@
     <interface type='network'>
       <mac address='52:54:00:a2:ce:26'/>
       <source network='default' bridge='virbr0'/>
-      <target dev='vnet0'/>
+      <target dev='vnet2'/>
       <model type='virtio'/>
       <alias name='net0'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
     </interface>
     <serial type='pty'>
-      <source path='/dev/pts/1'/>
+      <source path='/dev/pts/3'/>
       <target type='isa-serial' port='0'>
         <model name='isa-serial'/>
       </target>
       <alias name='serial0'/>
     </serial>
-    <console type='pty' tty='/dev/pts/1'>
-      <source path='/dev/pts/1'/>
+    <console type='pty' tty='/dev/pts/3'>
+      <source path='/dev/pts/3'/>
       <target type='serial' port='0'/>
       <alias name='serial0'/>
     </console>
@@ -108,7 +108,7 @@
     <input type='keyboard' bus='ps2'>
       <alias name='input2'/>
     </input>
-    <graphics type='vnc' port='5900' autoport='yes' listen='127.0.0.1'>
+    <graphics type='vnc' port='5902' autoport='yes' listen='127.0.0.1'>
       <listen type='address' address='127.0.0.1'/>
     </graphics>
     <video>

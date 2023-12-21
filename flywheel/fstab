@@ -1,0 +1,20 @@
+
+#
+# /etc/fstab
+# Created by anaconda on Wed Feb  1 14:33:47 2023
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/mapper/rhel-root   /                       xfs     defaults        0 0
+UUID=28c8faee-ca1b-4736-b469-2c0e42d54e99 /boot                   xfs     defaults        0 0
+/dev/mapper/rhel-home   /home                   xfs     defaults        0 0
+/dev/mapper/rhel-swap   swap                    swap    defaults        0 0
+/dev/sda1	/raidzeus	xfs	defaults	0 0
+# 20231221 - flywheel VMs on solid state drive
+/dev/nvme0n1	/nvme-vm	xfs	defaults	0 0
+
+# 20231003
+cerbro2:/gnu/store    /gnu/store    nfs defaults,noauto 0 0
+cerbro2:/var/guix     /var/guix     nfs defaults,noauto 0 0
+cerbro2:/var/log/guix /var/log/guix nfs defaults,noauto 0 0

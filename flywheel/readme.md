@@ -11,6 +11,10 @@
 |fw-util |192.168.122.4 |
 |fw-analysis | 192.168.122.5 |
 
+## Image location
+
+Images stored on xfs NVMe mount `/nvme-vm/fw/*img`. See `<source file=*img>` in `fw-*.xml` and [`log/img-to-nvme.md`](log/img-to-nvme.md). [`fstab`](fstab) has all mounts on `Zeus`
+
 ## Data share
 
 NFS share from host Zeus:
@@ -35,6 +39,7 @@ Similarly, from fw-core fw.mrrc.upmc.edu:80 points to zeus (no iptables virtbr0 
   * `iptables.txt` (see `Makefile`) has current firewall settings
   * panic ran `systemctl stop firewalld` (20231212). not sure what will happen when brought back up. see `firewall-cmd` in `vm_setup.bash`
   * `-d $HOST_IP` is missing in libvirt PREROUTING `iptables` networking example?
+  * `iptables -t nat -I OUTPUT -p tcp -d 10.48.86.33 --dport 80 -j DNAT --to 192.168.122.2:80` (OUTPUT not PREROUTING) enables `curl fw.mrrc.upmc.edu` from zues itself. not scripted. no hook
 
 
 ## Trouble shooting
