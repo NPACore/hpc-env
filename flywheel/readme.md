@@ -22,9 +22,9 @@ NFS share from host Zeus:
 mount 192.168.122.1:/raidzeus/flywheel/ /data/
 ```
 
-requires `apt install nfs-common` on VMs.
-
-(redhat libvirt version is too old to use virtio mounts.)
+ * redhat libvirt version is too old to use virtio mounts.
+ * requires `apt install nfs-common` on VMs.
+ * see setup_nfs.bash for disabling firewalld nfs block (internal zone, separate from `../docs/nfs_mounts.md`)
 
 ## NAT port forwarding
 
